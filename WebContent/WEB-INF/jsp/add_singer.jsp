@@ -5,26 +5,50 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="./js/jquery-3.4.1.min.js" ></script>
-<script>
-function add_singer() {
-	url="${pageContext.request.contextPath}/add_singer_submit"
-    param=$("#form1").serialize();
-    $.post(url,param,
-    		function (result) {
-    			alert("ok");
-		        if(result.flag==1){
-		        	console.log("787878")
-		            location.href="${pageContext.request.contextPath}/employee/list";
-		        }
-    })
-}
-</script>
+<link rel="stylesheet" href="./lib/layui/css/layui.css">
+<style>
+	.singer_bg{
+		width:500px;
+		margin:0 auto;
+		margin-top:50px;
+	}
+	input{
+		margin-top:20px;
+	}
+	p{
+		margin-top:20px;
+	}
+</style>
+<script type="text/javascript" src="./js/jquery-3.1.1.js"></script>
+<script src="./lib/layui/layui.js" charset="utf-8"></script>
 </head>
 <body>
 <form id="form1" method="post">
+<div class="singer_bg">
 歌手名字：<input class="singer_name" name="singer_name" type="text"><br>
-<button onclick="add_singer()">提交</button>
+头像：<input type="file"><br>
+性别：<input type="radio" name="sex" value="0" />女
+<input type="radio" name="sex" value="1" />男   <br>
+<p class="layui-btn" onclick="add_singer()" >提交</p>
+</div>
 </form>
+
+<script>
+function add_singer() {
+
+    $.ajax({
+    	url:"${pageContext.request.contextPath}/add_singer_submit",
+		data:$("#form1").serialize(),
+		dataType:"json",
+		success:function(result){
+			
+			alert(result.content)
+		}
+    }); 
+   
+
+}
+
+</script>
 </body>
 </html>
