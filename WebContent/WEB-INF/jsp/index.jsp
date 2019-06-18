@@ -101,20 +101,16 @@
                     </li>
                     <li>
                         <a href="javascript:;">
-                            <i class="iconfont left-nav-li" lay-tips="音乐管理">&#xe723;</i>
-                            <cite>音乐管理</cite>
+                            <i class="iconfont left-nav-li" lay-tips="PK信息">&#xe723;</i>
+                            <cite>PK信息</cite>
                             <i class="iconfont nav_right">&#xe697;</i></a>
                         <ul class="sub-menu">
                             <li>
-                                <a onclick="xadmin.add_tab('音乐列表','music_list')">
+                                <a onclick="xadmin.add_tab('添加PK信息','add_pk_message')">
                                     <i class="iconfont">&#xe6a7;</i>
-                                    <cite>音乐列表</cite></a>
+                                    <cite>添加PK信息</cite></a>
                             </li>
-                            <li>
-                                <a onclick="xadmin.add_tab('添加音乐','add_music')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>添加音乐</cite></a>
-                            </li>
+                            
                         </ul>
                     </li>
                     <li>
