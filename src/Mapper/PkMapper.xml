@@ -3,6 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Dao.PkDao">
+  <insert id="CreatePk" parameterType="Model.Pk">
+   insert into pk(pkName,pkTurn,pkStatus,pkType) 
+   values(#{pkName},#{pkTurn},#{pkStatus},#{pkType})
+  </insert>
+  
+  <select id="GetPklist"  parameterType="Integer" resultType="Model.Pk">
+  		select * FROM pk ORDER BY pk.pkId desc LIMIT 0,6
+  </select>
 
 	
     

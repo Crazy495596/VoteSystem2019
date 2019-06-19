@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html class="x-admin-sm">
     <head>
@@ -12,10 +13,33 @@
         <link rel="stylesheet" href="./css/xadmin.css">
         <script src="./lib/layui/layui.js" charset="utf-8"></script>
         <script type="text/javascript" src="./js/xadmin.js"></script>
-        <!--[if lt IE 9]>
-          <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-          <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript">
+        $(function(){
+        	$("#createVote").click(function(){
+        		
+        		
+        		$.ajax({
+            		url: "${pageContext.request.contextPath}/Create_pk2",
+                    type: "POST",
+                    dataType: "json",
+                    data: { pkName: $("input[name='pkName']").val(),pkType:$("#pkType option:selected").val()},
+                    success: function (result) {
+                        alert(result.content);
+                        window.location.href="${pageContext.request.contextPath}/create_pk";
+                    },
+                    error: function (result) {
+                        alert(err);
+                    }
+            	})
+            	
+        		
+        	})
+        	
+        	
+        })
+        </script>
+      
     </head>
     <body>
         <div class="x-nav">
@@ -39,10 +63,20 @@
                                 </div>
                           
                                 <div class="layui-inline layui-show-xs-block">
-                                    <input type="text" name="username"  placeholder="请输入投票名称" autocomplete="off" class="layui-input">
+                                    <input type="text" name="pkName"  placeholder="请输入投票名称" autocomplete="off" class="layui-input">
+                                </div>
+                                 <div class="layui-inline layui-show-xs-block">
+                                   <p>投票类型</p>
+                                </div>
+                                 <div class="layui-inline layui-show-xs-block">
+                                 	 <select name="modules" id="pkType"  lay-search="">
+							     	      <option value="正票">正票</option>
+							     	      <option value="倒票">倒票</option>
+							     	      
+									 </select>
                                 </div>
                                 <div class="layui-inline layui-show-xs-block">
-                                    <button class="layui-btn" onclick="xadmin.open('添加用户','./role-add.html',600,400)"><i class="layui-icon"></i>添加</button>
+                                    <p class="layui-btn" id="createVote" ><i class="layui-icon"></i>添加</p>
                                 </div>
                             </form>
                         </div>
@@ -59,19 +93,23 @@
                                   <th style="width:50px">ID</th>
                                   <th>投票名称</th>
                                   <th>添加时间</th>
+                                  <th>类型</th>
                                   <th>场次</th>
                                   <th>状态</th>
                                   <th>操作</th>
                               </thead>
                               <tbody>
+                              <c:forEach items="${Pklist}" var="list">
+                              
                                 <tr>
                                   <td>
                                     <input type="checkbox" name=""  lay-skin="primary">
                                   </td>
-                                  <td>1</td>
-                                  <td>超级管理员</td>
-                                  <td>会员列表，问题列表</td>
-                                  <td>具有至高无上的权利</td>
+                                  <td>${list.pkId}</td>
+                                  <td>${list.pkName}</td>
+                                  <td>${list.addtime}</td>
+                                  <td>${list.pkType}</td>
+                                  <td>第${list.pkTurn}场</td>
                                   <td class="td-status">
                                    	<span class="layui-btn layui-btn-normal layui-btn-mini" style="background:red">等待</span>
                                     <span class="layui-btn layui-btn-normal layui-btn-mini">开启</span>
@@ -81,6 +119,7 @@
                                     <button class="layui-btn"><i class="layui-icon"></i>添加场次</button>                      
                                   </td>
                                 </tr>
+                                </c:forEach>
                               </tbody>
                             </table>
                         </div>

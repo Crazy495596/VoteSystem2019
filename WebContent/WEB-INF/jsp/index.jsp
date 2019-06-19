@@ -76,7 +76,7 @@
             <div id="side-nav">
                 <ul id="nav">
                     <li>
-                        <a onclick="xadmin.add_tab('投票生成','create_vote')">
+                        <a onclick="xadmin.add_tab('投票生成','create_pk')">
                             <i class="iconfont left-nav-li" lay-tips="投票生成">&#xe6b8;</i>
                             <cite>投票生成</cite>
                             <i class="iconfont nav_right">&#xe697;</i></a>
