@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html class="x-admin-sm">
     <head>
@@ -10,8 +11,35 @@
         <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
         <link rel="stylesheet" href="./css/font.css">
         <link rel="stylesheet" href="./css/xadmin.css">
-        <script src="./lib/layui/layui.js" charset="utf-8"></script>
+       <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    	<script src="./lib/layui/layui.js" charset="UTF-8"></script>
         <script type="text/javascript" src="./js/xadmin.js"></script>
+        <script>
+        $(function(){
+        	layui.use('form', function(){
+            var form = layui.form;
+            
+        	//全选
+        	form.on('checkbox(checkall)', function(data){
+        		if($("#checkall").prop('checked')){
+        			$("#singer_lists input[type=checkbox]").each(function() {
+            			$(".checkd").prop("checked", true);
+        			});
+        		} else {
+        			$("#singer_lists input[type=checkbox]").each(function() {
+        				$(this).prop("checked", false);
+        			});
+        		}
+        	});
+        	
+        	
+        	
+        	
+        })
+   	
+        		      
+   });
+        </script>
         <!--[if lt IE 9]>
           <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
           <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
@@ -50,45 +78,46 @@
                         </div>
                         <div class="layui-card-header">
                             <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-                            <button class="layui-btn" onclick="xadmin.open('添加用户','./role-add.html',600,400)"><i class="layui-icon"></i>添加</button>
+                            <button class="layui-btn" onclick="xadmin.open('添加用户','./add_singer',600,400)"><i class="layui-icon"></i>添加</button>
                         </div>
                         <div class="layui-card-body ">
                             <table class="layui-table layui-form">
                               <thead>
                                 <tr>
                                   <th>
-                                    <input type="checkbox" name=""  lay-skin="primary">
+                                    <input type="checkbox" id="checkall" name="checkall"  lay-skin="primary" lay-filter="checkall">
                                   </th>
-                                  <th>ID</th>
-                                  <th>角色名</th>
-                                  <th>拥有权限规则</th>
-                                  <th>描述</th>
-                                  <th>状态</th>
+                                  <th>编号</th>
+                                  <th>歌手名</th>
+                                  <th>性别</th>
+                                  <th>添加时间</th>
                                   <th>操作</th>
                               </thead>
-                              <tbody>
+                              <tbody id="singer_lists">
+                              <c:forEach items="${singers}" var="item" varStatus="num">
                                 <tr>
-                                  <td>
-                                    <input type="checkbox" name=""  lay-skin="primary">
-                                  </td>
-                                  <td>1</td>
-                                  <td>超级管理员</td>
-                                  <td>会员列表，问题列表</td>
-                                  <td>具有至高无上的权利</td>
-                                  <td class="td-status">
-                                    <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
-                                  <td class="td-manage">
-                                    <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
-                                      <i class="layui-icon">&#xe601;</i>
-                                    </a>
-                                    <a title="编辑"  onclick="xadmin.open('编辑','role-add.html')" href="javascript:;">
-                                      <i class="layui-icon">&#xe642;</i>
-                                    </a>
-                                    <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                                      <i class="layui-icon">&#xe640;</i>
-                                    </a>
-                                  </td>
+	                                  <td>
+	                                    <input type="checkbox" class="checkd" name="checkd"  lay-skin="primary">
+	                                  </td>
+	                                  <td>${num.index+1}</td>
+	                                  <td>${item.singerName}</td>
+	                                  <td> <c:if test="${item.singerSex==1}">男</c:if>
+       										<c:if test="${item.singerSex==0}">女</c:if>
+       								  </td>
+	                                  <td>${item.addtime}</td>
+	                                  <td class="td-manage">
+	                                   <!--  <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
+	                                      <i class="layui-icon">&#xe601;</i>
+	                                    </a>
+	                                    <a title="编辑"  onclick="xadmin.open('编辑','role-add.html')" href="javascript:;">
+	                                      <i class="layui-icon">&#xe642;</i>
+	                                    </a> -->
+	                                    <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+	                                      <i class="layui-icon">&#xe640;</i>
+	                                    </a>
+	                                  </td>
                                 </tr>
+                               </c:forEach>
                               </tbody>
                             </table>
                         </div>
@@ -110,6 +139,8 @@
         </div> 
     </body>
     <script>
+   
+    
       layui.use(['laydate','form'], function(){
         var laydate = layui.laydate;
         var form = layui.form;
@@ -171,10 +202,12 @@
         });
       }
     </script>
-    <script>var _hmt = _hmt || []; (function() {
+    <script>
+    	 var _hmt = _hmt || []; (function() {
         var hm = document.createElement("script");
         hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(hm, s);
-      })();</script>
+      })(); 
+    </script>
 </html>
