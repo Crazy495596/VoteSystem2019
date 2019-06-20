@@ -22,6 +22,14 @@ public class LoginController {
 			ModelAndView mView=new ModelAndView("login");
 			return mView;
 		}
+		
+		@RequestMapping("/login_submit")
+		public ModelAndView Login_submit() {
+			ModelAndView mView=new ModelAndView("login_submit");
+			return mView;
+		}
+		
+		
 			@RequestMapping("/vote")
 		public ModelAndView vote() {
 			ModelAndView mView=new ModelAndView("/vote");
