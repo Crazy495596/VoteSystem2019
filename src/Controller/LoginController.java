@@ -22,11 +22,11 @@ public class LoginController {
 			ModelAndView mView=new ModelAndView("login");
 			return mView;
 		}
-		
+		////dsadkjlfkjladsf
 		@RequestMapping("/login_submit")
 		public ModelAndView Login_submit() {
 			ModelAndView mView=new ModelAndView("login_submit");
-			return mView;
+			return mView;    
 		}
 		
 		
