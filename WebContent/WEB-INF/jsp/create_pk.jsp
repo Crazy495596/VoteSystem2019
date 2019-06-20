@@ -94,12 +94,12 @@
             	})	
 			};
 			
-			addturn=function(a,b,c){
+			addturn=function(add,a,b,c){
 				$.ajax({
             		url: "${pageContext.request.contextPath}/Create_pk2",
                     type: "post",
                     dataType: "json",
-                    data: { pkName:a,pkType:b,pkTurn:c+1},
+                    data: {pkId:add, pkName:a,pkType:b,pkTurn:c+1},
                     success: function (result) {
                     	 alert(result.content);
                          window.location.href="${pageContext.request.contextPath}/create_pk?pages=0";
@@ -111,6 +111,9 @@
             	})	
 			};
         	
+			voteshow=function(a){
+				 window.location.href="${pageContext.request.contextPath}/voteshow?pkId="+a;
+			}
         	
         	
         	
@@ -193,8 +196,8 @@
                                     <span class="layui-btn" <c:if test="${list.pkStatus=='暂停'}">style="background:red"</c:if> onclick="pause(${list.pkId},${fenye.page})">暂停</span>
                                     <span class="layui-btn" <c:if test="${list.pkStatus=='结束'}">style="background:red"</c:if>  onclick="end1(${list.pkId},${fenye.page})">结束</span></td>
                                  	 <td class="td-manage">
-                                 	 <span  class="layui-btn">查看</span>
-                                    <button class="layui-btn" onclick="addturn('${list.pkName}','${list.pkType}',${list.pkTurn})"><i class="layui-icon"></i>添加场次</button>                      
+                                 	 <span  class="layui-btn" onclick="voteshow(${list.pkId})">查看</span>
+                                    <button class="layui-btn" onclick="addturn(${list.pkId},'${list.pkName}','${list.pkType}',${list.pkTurn})"><i class="layui-icon"></i>添加场次</button>                      
                                   </td>
                                 </tr>
                                 </c:forEach>

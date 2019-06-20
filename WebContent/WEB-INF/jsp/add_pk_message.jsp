@@ -144,12 +144,32 @@
                         <div class="layui-card-body ">
                             <div class="page">
                                 <div>
-                                  <a class="prev" href="">&lt;&lt;</a>
-                                  <a class="num" href="">1</a>
-                                  <span class="current">2</span>
-                                  <a class="num" href="">3</a>
-                                  <a class="num" href="">489</a>
-                                  <a class="next" href="">&gt;&gt;</a>
+                                  <c:if test="${fenye.page==0}">
+                                  <span class="current">${fenye.page+1}</span>
+                                  <a class="num" href="${pageContext.request.contextPath}/add_pk_message?pages=1">${fenye.page+2}</a>
+                                  <a class="num" href="${pageContext.request.contextPath}/add_pk_message?pages=2">${fenye.page+3}</a>
+                                   <span class="current">共${ fenye.totalpage+1}页</span>
+                                   <a class="next" href="${pageContext.request.contextPath}/add_pk_message?pages=1">&gt;&gt;</a> 
+                        </c:if>
+                     
+                         <c:if test="${fenye.page !=0  && fenye.page != fenye.totalpage}">
+                             <a class="prev" href="${pageContext.request.contextPath}/add_pk_message?pages=${fenye.page-1}">&lt;&lt;</a>
+                                  <a class="num" href=" ${pageContext.request.contextPath}/add_pk_message?pages=${fenye.page-1}">${fenye.page}</a>
+                                  <span class="current">${fenye.page+1}</span>
+                                  <a class="num" href="${pageContext.request.contextPath}/add_pk_message?pages=${fenye.page+1}">${fenye.page+2}</a>
+                            <span class="current">共${ fenye.totalpage+1}页</span>
+                                   <a class="next" href="${pageContext.request.contextPath}/add_pk_message?pages=${fenye.page+1}">&gt;&gt;</a> 
+                         </c:if>
+                         
+                          <c:if test="${fenye.page==fenye.totalpage}">
+                           <a class="prev" href="${pageContext.request.contextPath}/add_pk_message?pages=${fenye.page-1}">&lt;&lt;</a>
+                                  <a class="num" href="${pageContext.request.contextPath}/add_pk_message?pages=${fenye.page-2}">${fenye.page-1}</a>
+                                  <a class="num" href="${pageContext.request.contextPath}/add_pk_message?pages=${fenye.page-1}">${fenye.page} </a>
+                                   <span class="current">${fenye.page+1}</span>
+                                    <span class="current">共${ fenye.totalpage+1}页</span>
+                          </c:if>
+                                  
+                              
                                 </div>
                             </div>
                         </div>

@@ -4,25 +4,32 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Dao.PkMessageDao">
 	<select id="getPkList" resultType="Model.Pk">
-		 select  * from pk ORDER BY pkId desc
+		  select  * from pk GROUP BY pk.pkName ORDER BY pkId desc
 	</select>
 	
 	<select id="getSingerList" resultType="Model.Singer">
 		select  * from singer ORDER BY singerId desc
 	</select>
 	
-	<select id="getVoteMessageList" resultType="Model.VoteMessage">
+	<select id="getVoteMessageList" parameterType="integer" resultType="Model.VoteMessage">
 	select pm.messageId,pm.messMusic,pm.addtime,p.pkName,s.singerName,count(v.votePkmessid) as votesum 
 	from pk_message pm LEFT JOIN pk p on pm.messPkid=p.pkId
 	LEFT JOIN singer s on pm.messSingerid=s.singerId
 	LEFT JOIN vote v on pm.messageId=v.votePkmessid
 	GROUP BY pm.messageId
+	ORDER BY pm.messageId DESC
+ 	LIMIT #{limit},6
+ 	
 	</select>
 	
 	 <insert id="CreatePkmess" parameterType="Model.PkMessage">
 		   insert into pk_message(messPkid,messSingerid,messMusic) 
 		   values(#{messPkid},#{messSingerid},#{messMusic})
   </insert>
+  
+		  <select id="Getsunpm" resultType="integer">
+		  select count(*) FROM pk_message
+		  </select>
 
     
 </mapper>

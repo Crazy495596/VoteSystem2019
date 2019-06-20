@@ -27,8 +27,8 @@ public class PkMessageService {
 	}
 	
 
-	public List<VoteMessage> getVoteMessageList(){
-		List<VoteMessage> list=pkMessageDao.getVoteMessageList();
+	public List<VoteMessage> getVoteMessageList(Integer limit){
+		List<VoteMessage> list=pkMessageDao.getVoteMessageList(limit);
 		return list;
 	}
 	
