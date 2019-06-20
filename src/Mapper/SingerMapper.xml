@@ -5,8 +5,13 @@
 <mapper namespace="Dao.SingerDao">
 
 	<insert id="addSinger" parameterType="Model.Singer">
-        insert into singer(singer_name)
-        values(#{singer_name})
+        insert into singer(singerName,singerImg,singerSex)
+        values(#{singerName},#{singerImg},#{singerSex})
     </insert>
+    
+     <select id="getSingers" resultType="Model.Singer">
+        select * from singer
+    </select>
+    
     
 </mapper>
