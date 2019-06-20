@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import Dao.PkMessageDao;
+import Model.Fenye;
 import Model.Pk;
 import Model.PkMessage;
 import Model.ResultMsg;
@@ -18,17 +20,32 @@ import Service.PkMessageService;
 public class PkMessageController {
 	@Autowired
 	private PkMessageService pkmservice;
+	@Autowired
+	private PkMessageDao pmdao;
 	
 	@RequestMapping("/add_pk_message")
-	public ModelAndView add_pk_message() {
+	public ModelAndView add_pk_message(Integer pages) {
+		if(pages==null) {
+			pages=0;
+		}
+		
 		ModelAndView mView = new ModelAndView("add_pk_message");
 		List<Pk> pklist=pkmservice.getPkList();
 		List<Singer> singerlist=pkmservice.getSingerList();
-		List<VoteMessage> pkmessagelist=pkmservice.getVoteMessageList();
+		List<VoteMessage> pkmessagelist=pkmservice.getVoteMessageList(pages*6);
+		
+		Integer total= pmdao.Getsunpm();
+		Integer totalPage=(int) Math.floor(total/6);
+		
+		Fenye fenye=new Fenye();
+		fenye.setPage(pages);
+		fenye.setTotalpage(totalPage);
+		
 		
 		mView.addObject("pklist", pklist);
 		mView.addObject("singerlist", singerlist);
 		mView.addObject("pkmessagelist", pkmessagelist);
+		mView.addObject("fenye", fenye);
 		return mView;
 	}
 	

@@ -10,8 +10,9 @@ import Model.VoteMessage;
 public interface PkMessageDao {
 	List<Pk> getPkList();
 	List<Singer> getSingerList();
-	List<VoteMessage> getVoteMessageList();
+	List<VoteMessage> getVoteMessageList(Integer limit);
 	
 	Integer CreatePkmess(PkMessage pkmess);
+    Integer	Getsunpm();
 
 }

@@ -29,7 +29,26 @@
   UPDATE pk SET pk.pkStatus=#{pkStatus}  where pk.pkId=#{pkId}
   </update>
   
-
+    <select id="voteshow" parameterType="integer" resultType="Model.Voteshow">
+		SELECT p.pkName,s.singerImg,s.singerName,count(v.votePkmessid) as votesum  from pk p 
+		LEFT JOIN pk_message pm on p.pkId=pm.messPkid
+		LEFT JOIN singer s on pm.messSingerid=s.singerId
+		LEFT JOIN vote v on pm.messageId=v.votePkmessid
+		where p.pkId=#{pkId}
+		GROUP BY pm.messageId
+	</select>
+  
+   <select id="adddturn2" parameterType="integer" resultType="Model.PkMessage">
+			  SELECT pm.* FROM pk p 
+			LEFT JOIN pk_message pm on p.pkId=pm.messPkid
+			where p.pkId=#{pkId}
+	</select>
+	
+	<select id="adddturn1" resultType="integer">
+	SELECT pk.pkId from pk ORDER BY pk.pkId desc limit 0,1
+	</select>
+			
+	
 	
     
 </mapper>
