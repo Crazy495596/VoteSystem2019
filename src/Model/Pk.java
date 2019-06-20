@@ -7,10 +7,21 @@ public class Pk {
     private Integer pkId;
     private String pkName;
     private String pkStatus;
-    private String pkTurn;
+    private Integer pkTurn;
     private String pkType;
-    private Date addtime;
+    private String addtime;
     private String remork;
+    
+    private Integer pages;
+   
+    
+	
+	public Integer getPages() {
+		return pages;
+	}
+	public void setPages(Integer pages) {
+		this.pages = pages;
+	}
 	public Integer getPkId() {
 		return pkId;
 	}
@@ -29,10 +40,10 @@ public class Pk {
 	public void setPkStatus(String pkStatus) {
 		this.pkStatus = pkStatus;
 	}
-	public String getPkTurn() {
+	public Integer getPkTurn() {
 		return pkTurn;
 	}
-	public void setPkTurn(String pkTurn) {
+	public void setPkTurn(Integer pkTurn) {
 		this.pkTurn = pkTurn;
 	}
 	public String getPkType() {
@@ -41,10 +52,10 @@ public class Pk {
 	public void setPkType(String pkType) {
 		this.pkType = pkType;
 	}
-	public Date getAddtime() {
+	public String getAddtime() {
 		return addtime;
 	}
-	public void setAddtime(Date addtime) {
+	public void setAddtime(String addtime) {
 		this.addtime = addtime;
 	}
 	public String getRemork() {

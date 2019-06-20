@@ -76,10 +76,18 @@
             <div id="side-nav">
                 <ul id="nav">
                     <li>
-                        <a onclick="xadmin.add_tab('投票生成','create_vote')">
+                        <a onclick="xadmin.add_tab('投票生成','create_pk?pages=0')">
                             <i class="iconfont left-nav-li" lay-tips="投票生成">&#xe6b8;</i>
                             <cite>投票生成</cite>
                             <i class="iconfont nav_right">&#xe697;</i></a>
+                             <ul class="sub-menu">
+                            <li>
+                                <a onclick="xadmin.add_tab('添加PK信息','pkshow')">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>pk展示</cite></a>
+                            </li>
+                            
+                        </ul>
                     </li>
                     <li>
                         <a href="javascript:;">
@@ -146,7 +154,7 @@
                 </div>
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
-                        <iframe src='./welcome' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                        <iframe src='./creat_pk' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
                     </div>
                 </div>
                 <div id="tab_show"></div>

@@ -22,24 +22,7 @@ public class LoginController {
 			ModelAndView mView=new ModelAndView("login");
 			return mView;
 		}
-		
-		 @RequestMapping("/login_submit")
-		 @ResponseBody
-		    public ResultMsg login_content(@RequestParam String username, @RequestParam String password) {
-		        //ÒµÎñÂß¼­
-		        Admin admin=new Admin();
-		        admin.setAdminName(username);
-		        admin.setPassword(password);
-		       
-		        Admin admin2 = adminService.getAdmin(admin);
-		        if(admin2!=null){
-		   		 	return new ResultMsg(1,"µÇÂ½³É¹¦£¡"); 
-		   		 }else{
-		   			return new ResultMsg(0,"µÇÂ½Ê§°Ü£¡");
-		   		 }
-		    }
-		 
-		@RequestMapping("/index")
+			@RequestMapping("/index")
 		public ModelAndView index() {
 			ModelAndView mView=new ModelAndView("index");
 			return mView;
