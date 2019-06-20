@@ -10,6 +10,7 @@
         <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
         <link rel="stylesheet" href="./css/font.css">
         <link rel="stylesheet" href="./css/xadmin.css">
+        <script src="./js/jquery-3.4.1.min.js" charset="utf-8"></script>
         <script src="./lib/layui/layui.js" charset="utf-8"></script>
         <script type="text/javascript" src="./js/xadmin.js"></script>
         <!--[if lt IE 9]>
@@ -44,7 +45,7 @@
                                     <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
                                 </div>
                                 <div class="layui-inline layui-show-xs-block">
-                                    <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                                    <button id="so" class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
                                 </div>
                             </form>
                         </div>
@@ -57,7 +58,7 @@
                               <thead>
                                 <tr>
                                   <th>
-                                    <input type="checkbox" name=""  lay-skin="primary">
+                                    <input id="checkall" type="checkbox" name=""  lay-skin="primary" lay-filter="checkall">
                                   </th>
                                   <th>ID</th>
                                   <th>角色名</th>
@@ -66,7 +67,7 @@
                                   <th>状态</th>
                                   <th>操作</th>
                               </thead>
-                              <tbody>
+                              <tbody id="role_lists">
                                 <tr>
                                   <td>
                                     <input type="checkbox" name=""  lay-skin="primary">
@@ -110,9 +111,32 @@
         </div> 
     </body>
     <script>
+    $("#so").click(function(){
+    	alert("ddg")
+    })
+    
+    
       layui.use(['laydate','form'], function(){
         var laydate = layui.laydate;
         var form = layui.form;
+        
+        
+        //全选
+        form.on('checkbox(checkall)', function(data){
+        	if($(data.elem.checked)){
+    			$("#role_lists input[type=checkbox]").each(function(date) {
+    				$(this).prop("checked", true);
+
+    			});
+    		} else {
+    			$("#role_lists input[type=checkbox]").each(function() {
+    				$(this).prop("checked", false);
+    			});
+    		}
+    	});
+    	
+      
+        
         
         //执行一个laydate实例
         laydate.render({

@@ -1,5 +1,7 @@
 package Dao;
 
-public interface AdminDao {
+import Model.Admin;
 
+public interface AdminDao {
+	Admin getAdmin(Admin admin);
 }

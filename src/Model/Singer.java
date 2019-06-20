@@ -1,6 +1,5 @@
 package Model;
 
-import java.util.Date;
 
 public class Singer {
    
@@ -8,7 +7,7 @@ public class Singer {
     private String singerName;
     private String singerImg;
     private Integer singerSex;
-    private Date addtime;
+    private String addtime;
     private String remork;
 	public Integer getSingerId() {
 		return singerId;
@@ -34,10 +33,10 @@ public class Singer {
 	public void setSingerSex(Integer singerSex) {
 		this.singerSex = singerSex;
 	}
-	public Date getAddtime() {
+	public String getAddtime() {
 		return addtime;
 	}
-	public void setAddtime(Date addtime) {
+	public void setAddtime(String addtime) {
 		this.addtime = addtime;
 	}
 	public String getRemork() {
