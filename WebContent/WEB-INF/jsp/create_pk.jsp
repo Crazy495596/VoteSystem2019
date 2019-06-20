@@ -278,25 +278,12 @@
 
         });
 
-        
-
-    
       });
       
       $("#checkalls").click(function(){
 			alert("444")
 			
-			
-		/* 	if($("#checkall").prop('checked')){
-				$('input[type="checkbox"]').each(function(){
-						$(this).prop("checked",true);
-				});
-			}
-			else{
-				$('input[type="checkbox"]').each(function(){
-						$(this).prop("checked",false);
-					});
-			} */
+		
 			
 		})
 
