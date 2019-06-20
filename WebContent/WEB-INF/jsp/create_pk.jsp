@@ -244,10 +244,6 @@
                                    <span class="current">${fenye.page+1}</span>
                                     <span class="current">共${ fenye.totalpage+1}页</span>
                           </c:if>
-                                  
-                              
-                                  
-                                  
                                  
                                 </div>
                             </div>
