@@ -24,5 +24,15 @@ public class PkService {
 		List<Pk> pk=pkdao.GetPklist(limit);
 		return pk;
 	};
+	
+	public Pk repeat() {
+		Pk pk=pkdao.repeat();
+		return pk;
+	}
+	
+	public Integer updateStatus(Pk pk) {
+		Integer i=pkdao.updateStatus(pk);
+		return i;
+	}
 
 }

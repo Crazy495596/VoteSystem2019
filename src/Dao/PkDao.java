@@ -7,5 +7,7 @@ import Model.Pk;
 public interface PkDao {
 	Integer CreatePk(Pk pk);
 	List<Pk> GetPklist(Integer limit);
-
+	Pk repeat();
+	Integer updateStatus(Pk pk);
+	Integer GetTotalPage();
 }

@@ -17,24 +17,101 @@
         <script type="text/javascript">
         $(function(){
         	$("#createVote").click(function(){
-        		
-        		
         		$.ajax({
             		url: "${pageContext.request.contextPath}/Create_pk2",
                     type: "POST",
                     dataType: "json",
-                    data: { pkName: $("input[name='pkName']").val(),pkType:$("#pkType option:selected").val()},
+                    data: { pkName: $("input[name='pkName']").val(),pkType:$("#pkType option:selected").val(),pkTurn:1},
                     success: function (result) {
                         alert(result.content);
-                        window.location.href="${pageContext.request.contextPath}/create_pk";
+                        window.location.href="${pageContext.request.contextPath}/create_pk?pages=0";
                     },
                     error: function (result) {
                         alert(err);
                     }
             	})
-            	
-        		
         	})
+        	
+        	wait=function(a){
+        		alert("不可点击")
+        	};
+        	
+			start1=function(a,b){
+				
+				$.ajax({
+            		url: "${pageContext.request.contextPath}/updatsStatus",
+                    type: "get",
+                    dataType: "json",
+                    data: { pkStatus:'开启',pkId:a},
+                    success: function (result) {
+                    	if(result.flag==0){
+                    		alert(result.content);
+                    	}else{
+                    		 window.location.href="${pageContext.request.contextPath}/create_pk?pages="+b;
+                    	}
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+            	})		
+			};
+			
+			pause=function(a,b){
+				$.ajax({
+            		url: "${pageContext.request.contextPath}/updatsStatus",
+                    type: "get",
+                    dataType: "json",
+                    data: { pkStatus:'暂停',pkId:a},
+                    success: function (result) {
+                    	if(result.flag==0){
+                    		alert(result.content);
+                    	}else{
+                    		 window.location.href="${pageContext.request.contextPath}/create_pk?pages="+b;
+                    	}
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+            	})	
+			};
+			
+			end1=function(a,b){
+				$.ajax({
+            		url: "${pageContext.request.contextPath}/updatsStatus",
+                    type: "get",
+                    dataType: "json",
+                    data: { pkStatus:'结束',pkId:a},
+                    success: function (result) {
+                    	if(result.flag==0){
+                    		alert(result.content);
+                    	}else{
+                    		 window.location.href="${pageContext.request.contextPath}/create_pk?pages="+b;
+                    	}
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+            	})	
+			};
+			
+			addturn=function(a,b,c){
+				$.ajax({
+            		url: "${pageContext.request.contextPath}/Create_pk2",
+                    type: "post",
+                    dataType: "json",
+                    data: { pkName:a,pkType:b,pkTurn:c+1},
+                    success: function (result) {
+                    	 alert(result.content);
+                         window.location.href="${pageContext.request.contextPath}/create_pk?pages=0";
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                    
+            	})	
+			};
+        	
+        	
         	
         	
         })
@@ -90,33 +167,34 @@
                                   <th>
                                     <input type="checkbox" name=""  lay-skin="primary">
                                   </th>
-                                  <th style="width:50px">ID</th>
+                                  <th style="width:5%">ID</th>
                                   <th>投票名称</th>
                                   <th>添加时间</th>
                                   <th>类型</th>
                                   <th>场次</th>
-                                  <th>状态</th>
+                                  <th style="width:300px">状态</th>
                                   <th>操作</th>
                               </thead>
                               <tbody>
-                              <c:forEach items="${Pklist}" var="list">
+                              <c:forEach items="${Pklist}" var="list" varStatus="num">
                               
                                 <tr>
                                   <td>
                                     <input type="checkbox" name=""  lay-skin="primary">
                                   </td>
-                                  <td>${list.pkId}</td>
+                                  <td>${num.index+1+fenye.page*6}</td>
                                   <td>${list.pkName}</td>
                                   <td>${list.addtime}</td>
                                   <td>${list.pkType}</td>
                                   <td>第${list.pkTurn}场</td>
                                   <td class="td-status">
-                                   	<span class="layui-btn layui-btn-normal layui-btn-mini" style="background:red">等待</span>
-                                    <span class="layui-btn layui-btn-normal layui-btn-mini">开启</span>
-                                    <span class="layui-btn layui-btn-normal layui-btn-mini">暂停</span>
-                                    <span class="layui-btn layui-btn-normal layui-btn-mini">结束</span></td>
+                                   	<span class="layui-btn" <c:if test="${list.pkStatus=='等待'}">style="background:red"</c:if>   onclick="wait(${list.pkId},${fenye.page})">等待</span>
+                                    <span class="layui-btn" <c:if test="${list.pkStatus=='开启'}">style="background:red"</c:if>  onclick="start1(${list.pkId},${fenye.page})">开启</span>
+                                    <span class="layui-btn" <c:if test="${list.pkStatus=='暂停'}">style="background:red"</c:if> onclick="pause(${list.pkId},${fenye.page})">暂停</span>
+                                    <span class="layui-btn" <c:if test="${list.pkStatus=='结束'}">style="background:red"</c:if>  onclick="end1(${list.pkId},${fenye.page})">结束</span></td>
                                  	 <td class="td-manage">
-                                    <button class="layui-btn"><i class="layui-icon"></i>添加场次</button>                      
+                                 	 <span  class="layui-btn">查看</span>
+                                    <button class="layui-btn" onclick="addturn('${list.pkName}','${list.pkType}',${list.pkTurn})"><i class="layui-icon"></i>添加场次</button>                      
                                   </td>
                                 </tr>
                                 </c:forEach>
@@ -126,12 +204,40 @@
                         <div class="layui-card-body ">
                             <div class="page">
                                 <div>
-                                  <a class="prev" href="">&lt;&lt;</a>
-                                  <a class="num" href="">1</a>
-                                  <span class="current">2</span>
-                                  <a class="num" href="">3</a>
-                                  <a class="num" href="">489</a>
-                                  <a class="next" href="">&gt;&gt;</a>
+                                
+                                  
+                                  
+                                 
+                       
+                        <c:if test="${fenye.page==0}">
+                                  <span class="current">${fenye.page+1}</span>
+                                  <a class="num" href="${pageContext.request.contextPath}/create_pk?pages=1">${fenye.page+2}</a>
+                                  <a class="num" href="${pageContext.request.contextPath}/create_pk?pages=2">${fenye.page+3}</a>
+                                   <span class="current">共${ fenye.totalpage+1}页</span>
+                                   <a class="next" href="${pageContext.request.contextPath}/create_pk?pages=1">&gt;&gt;</a> 
+                        </c:if>
+                     
+                         <c:if test="${fenye.page !=0  && fenye.page != fenye.totalpage}">
+                             <a class="prev" href="${pageContext.request.contextPath}/create_pk?pages=${fenye.page-1}">&lt;&lt;</a>
+                                  <a class="num" href=" ${pageContext.request.contextPath}/create_pk?pages=${fenye.page-1}">${fenye.page}</a>
+                                  <span class="current">${fenye.page+1}</span>
+                                  <a class="num" href="${pageContext.request.contextPath}/create_pk?pages=${fenye.page+1}">${fenye.page+2}</a>
+                            <span class="current">共${ fenye.totalpage+1}页</span>
+                                   <a class="next" href="${pageContext.request.contextPath}/create_pk?pages=${fenye.page+1}">&gt;&gt;</a> 
+                         </c:if>
+                         
+                          <c:if test="${fenye.page==fenye.totalpage}">
+                           <a class="prev" href="${pageContext.request.contextPath}/create_pk?pages=${fenye.page-1}">&lt;&lt;</a>
+                                  <a class="num" href="${pageContext.request.contextPath}/create_pk?pages=${fenye.page-2}">${fenye.page-1}</a>
+                                  <a class="num" href="${pageContext.request.contextPath}/create_pk?pages=${fenye.page-1}">${fenye.page} </a>
+                                   <span class="current">${fenye.page+1}</span>
+                                    <span class="current">共${ fenye.totalpage+1}页</span>
+                          </c:if>
+                                  
+                              
+                                  
+                                  
+                                 
                                 </div>
                             </div>
                         </div>

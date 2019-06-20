@@ -7,7 +7,7 @@ public class PkMessage {
 	private Integer messPkid;
 	private Integer messSingerid;
 	private String messMusic;
-	private Date addtime;
+	private String addtime;
     private String remork;
 	public Integer getMessageId() {
 		return messageId;
@@ -33,10 +33,10 @@ public class PkMessage {
 	public void setMessMusic(String messMusic) {
 		this.messMusic = messMusic;
 	}
-	public Date getAddtime() {
+	public String getAddtime() {
 		return addtime;
 	}
-	public void setAddtime(Date addtime) {
+	public void setAddtime(String addtime) {
 		this.addtime = addtime;
 	}
 	public String getRemork() {

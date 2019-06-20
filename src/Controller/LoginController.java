@@ -12,6 +12,12 @@ public class LoginController {
 			return mView;
 		}
 		
+		@RequestMapping("/vote")
+		public ModelAndView vote() {
+			ModelAndView mView=new ModelAndView("/vote");
+			return mView;
+		}
+		
 		@RequestMapping("/index")
 		public ModelAndView index() {
 			ModelAndView mView=new ModelAndView("index");
@@ -27,6 +33,12 @@ public class LoginController {
 		@RequestMapping("/role_list")
 		public ModelAndView role_list() {
 			ModelAndView mView=new ModelAndView("role_list");
+			return mView;
+		}
+		
+		@RequestMapping("/pkshow")
+		public ModelAndView pkshow() {
+			ModelAndView mView=new ModelAndView("pkshow");
 			return mView;
 		}
 			

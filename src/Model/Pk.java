@@ -9,8 +9,19 @@ public class Pk {
     private String pkStatus;
     private Integer pkTurn;
     private String pkType;
-    private Date addtime;
+    private String addtime;
     private String remork;
+    
+    private Integer pages;
+   
+    
+	
+	public Integer getPages() {
+		return pages;
+	}
+	public void setPages(Integer pages) {
+		this.pages = pages;
+	}
 	public Integer getPkId() {
 		return pkId;
 	}
@@ -41,10 +52,10 @@ public class Pk {
 	public void setPkType(String pkType) {
 		this.pkType = pkType;
 	}
-	public Date getAddtime() {
+	public String getAddtime() {
 		return addtime;
 	}
-	public void setAddtime(Date addtime) {
+	public void setAddtime(String addtime) {
 		this.addtime = addtime;
 	}
 	public String getRemork() {
