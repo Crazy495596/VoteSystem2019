@@ -113,7 +113,15 @@
         	
 			voteshow=function(a){
 				 window.location.href="${pageContext.request.contextPath}/voteshow?pkId="+a;
-			}
+			};
+			
+			
+			
+				
+				
+			
+			
+			
         	
         	
         	
@@ -161,14 +169,14 @@
                             </form>
                         </div>
                         <div class="layui-card-header">
-                            <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>    
+                            <button class="layui-btn layui-btn-danger" ><i class="layui-icon"></i>批量删除</button>    
                         </div>
                         <div class="layui-card-body ">
                             <table class="layui-table layui-form">
                               <thead>
                                 <tr>
                                   <th>
-                                    <input type="checkbox" name=""  lay-skin="primary">
+                                    <input type="checkbox"  id="checkalls" lay-filter="checkalls"  lay-skin="primary">
                                   </th>
                                   <th style="width:5%">ID</th>
                                   <th>投票名称</th>
@@ -178,12 +186,12 @@
                                   <th style="width:300px">状态</th>
                                   <th>操作</th>
                               </thead>
-                              <tbody>
+                              <tbody id="checkBoxList">
                               <c:forEach items="${Pklist}" var="list" varStatus="num">
                               
                                 <tr>
                                   <td>
-                                    <input type="checkbox" name=""  lay-skin="primary">
+                                    <input type="checkbox" name="cityId" class="cityId"   lay-skin="primary" value="${list.pkId}">
                                   </td>
                                   <td>${num.index+1+fenye.page*6}</td>
                                   <td>${list.pkName}</td>
@@ -254,67 +262,44 @@
         var laydate = layui.laydate;
         var form = layui.form;
         
-        //执行一个laydate实例
-        laydate.render({
-          elem: '#start' //指定元素
+        form.on('checkbox(checkalls)', function (data) {
+            var a = data.elem.checked;
+            if (a == true) {
+                $(".cityId").prop("checked", true);
+                form.render('checkbox');
+            } else {
+                $(".cityId").prop("checked", false);
+                form.render('checkbox');
+            }
+            
+            $("input:checkbox[name='cityId']:checked").each(function(i){
+                alert($(this).val())
+            });
+
         });
 
-        //执行一个laydate实例
-        laydate.render({
-          elem: '#end' //指定元素
-        });
+        
+
+    
       });
+      
+      $("#checkalls").click(function(){
+			alert("444")
+			
+			
+		/* 	if($("#checkall").prop('checked')){
+				$('input[type="checkbox"]').each(function(){
+						$(this).prop("checked",true);
+				});
+			}
+			else{
+				$('input[type="checkbox"]').each(function(){
+						$(this).prop("checked",false);
+					});
+			} */
+			
+		})
 
-       /*用户-停用*/
-      function member_stop(obj,id){
-          layer.confirm('确认要停用吗？',function(index){
-
-              if($(obj).attr('title')=='启用'){
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title','停用')
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!',{icon: 5,time:1000});
-
-              }else{
-                $(obj).attr('title','启用')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!',{icon: 5,time:1000});
-              }
-              
-          });
-      }
-
-      /*用户-删除*/
-      function member_del(obj,id){
-          layer.confirm('确认要删除吗？',function(index){
-              //发异步删除数据
-              $(obj).parents("tr").remove();
-              layer.msg('已删除!',{icon:1,time:1000});
-          });
-      }
-
-
-
-      function delAll (argument) {
-
-        var data = tableCheck.getData();
-  
-        layer.confirm('确认要删除吗？'+data,function(index){
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-        });
-      }
-    </script>
-    <script>var _hmt = _hmt || []; (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();</script>
+     
+     </script>
 </html>
