@@ -189,9 +189,9 @@
                               
                                 <tr>
                                   <td>
-                                    <input type="checkbox" name="cityId" class="cityId" id="selectdel"  lay-skin="primary" value="${list.pkId}">
+                                    <input type="checkbox" name="cityId" class="cityId" id="selectdel" lay-filter="cityId"  lay-skin="primary" value="${list.pkId}">
                                   </td>
-                                  <td>${num.index+1+fenye.page*6}</td>
+                                  <td>${list.pkId}</td>
                                   <td>${list.pkName}</td>
                                   <td>${list.addtime}</td>
                                   <td>${list.pkType}</td>
@@ -253,6 +253,7 @@
     </body>
     <script>
       layui.use(['laydate','form'], function(){
+    	  
         var laydate = layui.laydate;
         var form = layui.form;
         
@@ -268,29 +269,35 @@
             
         });
         
-      /*   form.on('checkbox(cityId)', function (data) {
-        	 $("input:checkbox[name='cityId']:checked").each(function(i){
-                 alert($(this).val())
-             });
-   	 */
-            
-        });
         
         
-
-      });
+        //有一个未选中全选取消选中
+        form.on('checkbox(cityId)', function (data) {
+            var item = $(".cityId");
+            for (var i = 0; i < item.length; i++) {
+                if (item[i].checked == false) {
+                    $("#checkalls").prop("checked", false);
+                    form.render('checkbox');
+                    break;
+                }
+            }
+            //如果都勾选了  勾上全选
+            var  all=item.length;
+            for (var i = 0; i < item.length; i++) {
+                if (item[i].checked == true) {
+                    all--;
+                }
+            }
+            if(all==0){
+            $("#checkalls").prop("checked", true);
+            form.render('checkbox');}
+        })
+        
+        
       
-     /*  $("#piliangdel").click(function(){
-    	  var arr=new Array();
-    	  $("input:checkbox[name='cityId']:checked").each(function(i){
-              arr.push($(this).val())
-          });
-    	/*   $.session.set('arr',arr) */
-	
-		}) */
-		
-		
+      })
+       </script>
 
-     
-     </script>
+
+    
 </html>

@@ -76,13 +76,18 @@
             <div id="side-nav">
                 <ul id="nav">
                     <li>
-                        <a onclick="xadmin.add_tab('投票生成','create_pk?pages=0')">
+                          <a href="javascript:;">
                             <i class="iconfont left-nav-li" lay-tips="投票生成">&#xe6b8;</i>
                             <cite>投票生成</cite>
                             <i class="iconfont nav_right">&#xe697;</i></a>
                              <ul class="sub-menu">
+                             <li>
+                                <a onclick="xadmin.add_tab('投票生成与管理','create_pk?pages=0')">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>投票生成与管理</cite></a>
+                            </li>
                             <li>
-                                <a onclick="xadmin.add_tab('添加PK信息','pkshow')">
+                                <a onclick="xadmin.add_tab('添加PK信息','voteshow')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>pk展示</cite></a>
                             </li>
@@ -121,12 +126,7 @@
                             
                         </ul>
                     </li>
-                    <li>
-                        <a onclick="xadmin.add_tab('用户管理','role_list')">
-                            <i class="iconfont left-nav-li" lay-tips="用户管理">&#xe723;</i>
-                            <cite>用户管理</cite>
-                            <i class="iconfont nav_right">&#xe697;</i></a>
-                    </li>
+                   
                     <li>
                         <a onclick="xadmin.add_tab('修改密码','update.html')">
                             <i class="iconfont left-nav-li" lay-tips="修改密码">&#xe726;</i>
