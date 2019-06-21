@@ -107,7 +107,7 @@
 	                                    <a title="编辑"  onclick="xadmin.open('编辑','role-add.html')" href="javascript:;">
 	                                      <i class="layui-icon">&#xe642;</i>
 	                                    </a> -->
-	                                    <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+	                                    <a title="删除" onclick="member_del(this,${item.singerId})" href="javascript:;">
 	                                      <i class="layui-icon">&#xe640;</i>
 	                                    </a>
 	                                  </td>
@@ -178,9 +178,15 @@
       /*用户-删除*/
       function member_del(obj,id){
           layer.confirm('确认要删除吗？',function(index){
-              //发异步删除数据
-              $(obj).parents("tr").remove();
-              layer.msg('已删除!',{icon:1,time:1000});
+        	var url = '${pageContext.request.contextPath}/singer_del';
+          	var param = {singerId:id};
+          	$.post(url, param, function (data) {       		
+          		layer.msg('已删除!',{icon:1,time:1000});
+          		if(data.flag == 1){
+                  	location.href='${pageContext.request.contextPath}/singer_list';
+                  } 
+              });
+              
           });
       }
 

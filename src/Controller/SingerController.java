@@ -93,5 +93,16 @@ public class SingerController {
 		mView.addObject("singers",singers);
 		return mView;
 	}
+	
+	@ResponseBody	
+	@RequestMapping("/singer_del")
+	public ResultMsg singer_del(Integer singerId) {
+        int i=singerService.delById(singerId);
+        if(i>0){
+            return new ResultMsg(1,"É¾³ý³É¹¦£¡");
+        }else{
+            return new ResultMsg(0,"É¾³ýÊ§°Ü£¡");
+        }
+	}
 
 }
