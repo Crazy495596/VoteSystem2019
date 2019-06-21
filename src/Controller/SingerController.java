@@ -44,7 +44,7 @@ public class SingerController {
 		System.out.println(singerName+"   "+multipartFile+" "+singerSex);
 		 //上传文件到服务器
 	      //获取图片在服务器上的物理路径（项目所在服务器的物理路径）
-	      String realPath=request.getServletContext().getRealPath("/upload/");//getServletContext项目上下文
+	      String realPath=request.getServletContext().getRealPath("./upload/");//getServletContext项目上下文
 	      System.out.println(realPath);
 	      String filename=multipartFile.getOriginalFilename();   //文件名和后缀
 	      String path=realPath+filename;

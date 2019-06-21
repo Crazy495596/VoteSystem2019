@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <style type="text/css">
 			body{
-				background: url(./images/bg1.bmp);
+				background:lightgoldenrodyellow;
 			}
 			#VoteMain {
 				width: 1000px;
@@ -66,7 +66,7 @@
 				font-size: 32px;
 				text-align: center;
 				line-height: 30px;
-				color: orange;
+				color: orangered;
 				text-align: center;
 				position: relative;
 				
@@ -126,11 +126,12 @@
 						<p class="VoteText">${list.singerName }</p>
 					</div>
 					<div class="voteimg">
-						<img title="支持一下" src="" class="VoteImg">
+						<img title="支持一下" src="./images/22.jpg" class="VoteImg">
 					</div>
 					<div class="VoteValue" style="height: 220px;">
 						<div class="VoteSpan">${list.votesum }<span class="VoteSpanTri"></span></div>
 					</div>	
+					
 				</div>
 				</c:forEach>
 				

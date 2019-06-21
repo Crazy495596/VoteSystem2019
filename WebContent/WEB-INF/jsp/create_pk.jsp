@@ -13,9 +13,17 @@
         <link rel="stylesheet" href="./css/xadmin.css">
         <script src="./lib/layui/layui.js" charset="utf-8"></script>
         <script type="text/javascript" src="./js/xadmin.js"></script>
+        
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="./js/jquerySession.js"></script>
         <script type="text/javascript">
         $(function(){
+        /* 	 var arr=new Array();
+        	 arr=$.session.get('arr');
+        	 for ( var i = 0; i <arr.length; i++){
+        		    alert(arr[i]);
+        		} */
+        	
         	$("#createVote").click(function(){
         		$.ajax({
             		url: "${pageContext.request.contextPath}/Create_pk2",
@@ -94,7 +102,7 @@
             	})	
 			};
 			
-			addturn=function(add,a,b,c){
+			addturn=function(add,a,b,c,d){
 				$.ajax({
             		url: "${pageContext.request.contextPath}/Create_pk2",
                     type: "post",
@@ -102,7 +110,7 @@
                     data: {pkId:add, pkName:a,pkType:b,pkTurn:c+1},
                     success: function (result) {
                     	 alert(result.content);
-                         window.location.href="${pageContext.request.contextPath}/create_pk?pages=0";
+                         window.location.href="${pageContext.request.contextPath}/create_pk?pages="+d;
                     },
                     error: function (err) {
                         alert(err);
@@ -114,17 +122,7 @@
 			voteshow=function(a){
 				 window.location.href="${pageContext.request.contextPath}/voteshow?pkId="+a;
 			};
-			
-			
-			
 				
-				
-			
-			
-			
-        	
-        	
-        	
         })
         </script>
       
@@ -169,7 +167,7 @@
                             </form>
                         </div>
                         <div class="layui-card-header">
-                            <button class="layui-btn layui-btn-danger" ><i class="layui-icon"></i>批量删除</button>    
+                            <button class="layui-btn layui-btn-danger" id="piliangdel" ><i class="layui-icon"></i>批量删除</button>    
                         </div>
                         <div class="layui-card-body ">
                             <table class="layui-table layui-form">
@@ -191,7 +189,7 @@
                               
                                 <tr>
                                   <td>
-                                    <input type="checkbox" name="cityId" class="cityId"   lay-skin="primary" value="${list.pkId}">
+                                    <input type="checkbox" name="cityId" class="cityId" id="selectdel"  lay-skin="primary" value="${list.pkId}">
                                   </td>
                                   <td>${num.index+1+fenye.page*6}</td>
                                   <td>${list.pkName}</td>
@@ -199,13 +197,13 @@
                                   <td>${list.pkType}</td>
                                   <td>第${list.pkTurn}场</td>
                                   <td class="td-status">
-                                   	<span class="layui-btn" <c:if test="${list.pkStatus=='等待'}">style="background:red"</c:if>   onclick="wait(${list.pkId},${fenye.page})">等待</span>
-                                    <span class="layui-btn" <c:if test="${list.pkStatus=='开启'}">style="background:red"</c:if>  onclick="start1(${list.pkId},${fenye.page})">开启</span>
-                                    <span class="layui-btn" <c:if test="${list.pkStatus=='暂停'}">style="background:red"</c:if> onclick="pause(${list.pkId},${fenye.page})">暂停</span>
-                                    <span class="layui-btn" <c:if test="${list.pkStatus=='结束'}">style="background:red"</c:if>  onclick="end1(${list.pkId},${fenye.page})">结束</span></td>
-                                 	 <td class="td-manage">
+     <span class="layui-btn" <c:if test="${list.pkStatus=='等待'}">style="background:red"</c:if> <c:if test="${list.pkStatus!='等待'}">style="background:silver; cursor:not-allowed;"</c:if>   >等待</span>
+     <span class="layui-btn" <c:if test="${list.pkStatus=='开启'}">style="background:red"</c:if><c:if test="${list.pkStatus=='结束'}">style="background:silver; cursor:not-allowed;"</c:if> <c:if test="${list.pkStatus!='结束'}">onclick="start1(${list.pkId},${fenye.page})"</c:if> >开启</span>
+     <span class="layui-btn" <c:if test="${list.pkStatus=='暂停'}">style="background:red"</c:if><c:if test="${list.pkStatus=='结束'}">style="background:silver; cursor:not-allowed;"</c:if>     <c:if test="${list.pkStatus!='结束'}">onclick="pause(${list.pkId},${fenye.page})"</c:if>  >暂停</span>
+     <span class="layui-btn" <c:if test="${list.pkStatus=='结束'}">style="background:red"</c:if>  onclick="end1(${list.pkId},${fenye.page})">结束</span></td>
+                               	 <td class="td-manage">
                                  	 <span  class="layui-btn" onclick="voteshow(${list.pkId})">查看</span>
-                                    <button class="layui-btn" onclick="addturn(${list.pkId},'${list.pkName}','${list.pkType}',${list.pkTurn})"><i class="layui-icon"></i>添加场次</button>                      
+                                    <button class="layui-btn" onclick="addturn(${list.pkId},'${list.pkName}','${list.pkType}',${list.pkTurn},${fenye.page})"><i class="layui-icon"></i>添加场次</button>                      
                                   </td>
                                 </tr>
                                 </c:forEach>
@@ -268,20 +266,30 @@
                 form.render('checkbox');
             }
             
-            $("input:checkbox[name='cityId']:checked").each(function(i){
-                alert($(this).val())
-            });
-
         });
+        
+      /*   form.on('checkbox(cityId)', function (data) {
+        	 $("input:checkbox[name='cityId']:checked").each(function(i){
+                 alert($(this).val())
+             });
+   	 */
+            
+        });
+        
+        
 
       });
       
-      $("#checkalls").click(function(){
-			alert("444")
-			
+     /*  $("#piliangdel").click(function(){
+    	  var arr=new Array();
+    	  $("input:checkbox[name='cityId']:checked").each(function(i){
+              arr.push($(this).val())
+          });
+    	/*   $.session.set('arr',arr) */
+	
+		}) */
 		
-			
-		})
+		
 
      
      </script>

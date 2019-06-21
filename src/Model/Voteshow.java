@@ -3,7 +3,7 @@ package Model;
 public class Voteshow {
 
 	private String pkName;
-	private String singeImg;
+	private String singerImg;
 	private Integer votesum;
 	private String singerName;
 	public String getSingerName() {
@@ -18,11 +18,11 @@ public class Voteshow {
 	public void setPkName(String pkName) {
 		this.pkName = pkName;
 	}
-	public String getSingeImg() {
-		return singeImg;
+	public String getSingerImg() {
+		return singerImg;
 	}
-	public void setSingeImg(String singeImg) {
-		this.singeImg = singeImg;
+	public void setSingerImg(String singerImg) {
+		this.singerImg = singerImg;
 	}
 	public Integer getVotesum() {
 		return votesum;

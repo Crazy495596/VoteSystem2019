@@ -154,7 +154,7 @@
                 </div>
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
-                        <iframe src='./creat_pk' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                        <iframe src='./create_pk' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
                     </div>
                 </div>
                 <div id="tab_show"></div>

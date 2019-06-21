@@ -47,6 +47,13 @@
 	<select id="adddturn1" resultType="integer">
 	SELECT pk.pkId from pk ORDER BY pk.pkId desc limit 0,1
 	</select>
+	
+	<select id="yesnopkmess" parameterType="integer" resultType="integer">
+		SELECT count(*) from pk p LEFT JOIN pk_message pm on p.pkId=pm.messPkid
+		WHERE p.pkId=#{pkId}
+	</select>
+	
+
 			
 	
 	

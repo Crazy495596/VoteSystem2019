@@ -16,4 +16,5 @@ public interface PkDao {
 	
 	Integer adddturn1();
 	List<PkMessage> adddturn2(Integer pkId);
+	Integer yesnopkmess(Integer pkId);
 }
